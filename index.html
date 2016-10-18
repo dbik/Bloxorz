@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>Learning WebGL &mdash; lesson 6</title>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="index.css"/>
+
+<script type="text/javascript" src="/libs/glMatrix-0.9.5.min.js"></script>
+<script type="text/javascript" src="/libs/webgl-utils.js"></script>
+<script type="text/javascript" src="/libs/jquery.js"></script>
+<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var canvas_width = $("#canvas_wrapper").width();
+	canvas_width = canvas_width / 2;
+	var window_width = $(window).width();
+	window_width = window_width / 2;
+	var canvas_left = window_width - canvas_width;
+	$("#game_wrapper").css({left: canvas_left + "px"});
+	window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+	    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+	        e.preventDefault();
+	    }
+	}, false);
+});
+</script>
+<script id="shader-fs" type="x-shader/x-fragment">
+    precision mediump float;
+
+    varying vec2 vTextureCoord;
+	varying vec3 vLightWeighting;
+
+    uniform sampler2D uSampler;
+
+    void main(void) {
+		vec4 textureColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+        gl_FragColor = vec4(textureColor.rgb * vLightWeighting, textureColor.a);
+    }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+	attribute vec3 aVertexNormal;
+    attribute vec2 aTextureCoord;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+	uniform mat3 uNMatrix;
+
+    uniform vec3 uAmbientColor;
+
+    uniform vec3 uLightingDirection;
+    uniform vec3 uDirectionalColor;
+
+    uniform bool uUseLighting;
+
+    varying vec2 vTextureCoord;
+    varying vec3 vLightWeighting;
+
+
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vTextureCoord = aTextureCoord;
+		if (!uUseLighting) {
+            vLightWeighting = vec3(1.0, 1.0, 1.0);
+        } else {
+            vec3 transformedNormal = uNMatrix * aVertexNormal;
+            float directionalLightWeighting = max(dot(transformedNormal, uLightingDirection), 0.0);
+            vLightWeighting = uAmbientColor + uDirectionalColor * directionalLightWeighting;
+        }
+    }
+</script>
+</head>
+<body onload="webGLStart();">
+	<div id="game_wrapper">
+    	<div id="canvas_wrapper"><canvas id="game" width="650" height="400"></canvas></div>
+        <div id="status">
+        	<div id="stage_div">Stage: <span id="stage">1</span></div>
+            <div id="result_div"><span id="result"></span></div>
+        	<div id="moves_div">Moves: <span id="moves">0</span></div>
+            <div id="time_div">Time: <span id="time">0</span></div>
+        </div>
+        <div id="controls">
+        	<div id="stage_1">
+            	<div>STAGE 1</div>
+        	</div>
+            <div id="stage_2">
+            	<div>STAGE 2</div>
+        	</div>
+            <div id="stage_3">
+            	<div>STAGE 3</div>
+        	</div>
+            <label for="lighting">Use lighting efe</label>
+            <input type="checkbox" id="lighting" name="lighting" checked />
+            <audio controls autoplay="autoplay">
+            <source src="mp3/bg_song.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+            </audio>
+
+            <div id="wins_div">Wins: <span id="wins">0</span>
+            </div>
+            <div id="looses_div">Looses: <span id="looses">0</span>
+            </div>
+            <div id="tag">made by <span id="sur">JIM BIKAS</span></div>
+        </div>
+    </div>
+</body>
+</html>

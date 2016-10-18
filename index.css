@@ -1,0 +1,141 @@
+@charset "utf-8";
+/* CSS Document */
+
+#game_wrapper
+{
+	position:absolute;
+	width:650px;
+	height:auto;
+	border:2px solid red;
+	border-radius:5px;
+	overflow:hidden;
+}
+#game_wrapper:hover
+{
+	-moz-box-shadow: 5px 5px 5px #888888;
+	-webkit-box-shadow: 5px 5px 5px #888888;
+	box-shadow: 5px 5px 5px #888888;
+}
+#canvas_wrapper
+{
+	width:650px;
+	height:400px;
+	background-image:url(img/10.jpg);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+#status
+{
+	position:relative;
+	width:100%;
+	height:80px;
+	font-size:24px;
+	text-align:center;
+	background:#111111;
+	color:#ffffff;
+}
+#stage_div
+{
+	float:left;
+	margin-left:10px;
+	margin-top:10px;
+}
+#result_div
+{
+	float:left;
+	margin-left:210px;
+	margin-top:10px;
+	font-size:28px;
+}
+#moves_div
+{
+	position:absolute;
+	top:50px;
+	left:5px;
+	font-size:20px;
+	padding:5px;
+}
+#time_div
+{
+	position:absolute;
+	top:50px;
+	right:5px;
+	font-size:20px;
+	color:red;
+	padding:5px;
+}
+#controls
+{
+	border-top:2px solid #CCC;
+	width:650px;
+	height:400px;
+	background:#111111;
+	padding:5px;
+}
+#controls label, #controls input
+{
+	color:#ffffff;
+	font-size:20px;
+	margin-top:50px;
+	float:left;
+	border:1px solid #CCC;
+	border-radius:2px;
+}
+
+#stage_1, #stage_2, #stage_3, #stage_4, #stage_5
+{
+	width:100px;
+	height:25px;
+	background:#CCC;
+	color:black;
+	border:1px inset white;
+	border-radius:5px;
+	float:left;
+	margin:5px;
+}
+#stage_1:hover, #stage_2:hover, #stage_3:hover, #stage_4:hover, #stage_5:hover
+{
+	-moz-box-shadow: 2px 2x 2px #888888;
+	-webkit-box-shadow: 2px 2px 2px #888888;
+	box-shadow: 2px 2px 2px #888888;
+	cursor:pointer;
+}
+#stage_1 div, #stage_2 div, #stage_3 div, #stage_4 div, #stage_5 div
+{
+	text-align:center;
+	margin-top:3.5px;
+	font-family:Verdana, Geneva, sans-serif;
+}
+#wins_div, #looses_div
+{
+	width:300px;
+	height:200px;
+	position:absolute;
+	top:650px;
+	overflow-y:schroll;
+	background:black;
+	color:#ffffff;
+}
+#wins_div
+{
+	left:12.5px;
+}
+#looses_div
+{
+	left:337.5px;
+}
+#tag
+{
+	color:white;
+	font-size:24px;
+	font-family:"Comic Sans MS", cursive;
+	position:absolute;
+	bottom:5px;
+	right:10px;
+	padding:5px;
+}
+#sur
+{
+	text-shadow: 5px 1px 5px #96a8f2;
+    filter: dropshadow(color=#96a8f2, offx=5, offy=1);
+}
